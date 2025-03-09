@@ -2,6 +2,12 @@
 
 namespace Calculadora.ConsoleApp
 {
+    enum Operacao { 
+        Somar = 1,
+        Subtrair = 2,
+        Multiplicar = 3,
+        Dividir = 4
+    }
     internal class Program
     {
         static void Main(string[] args)
@@ -30,6 +36,12 @@ namespace Calculadora.ConsoleApp
                     return;
                 }
 
+                if (!Enum.TryParse(opcao, out Operacao operacao) || !Enum.IsDefined(typeof(Operacao), operacao))
+                {
+                    Console.WriteLine("Opção Inválida");
+                    continue;
+                }
+
                 double primeiroNumero;
                 if (continuarOperando)
                 {
@@ -47,35 +59,29 @@ namespace Calculadora.ConsoleApp
 
                 bool valido = true;
 
-                if (opcao == "1")
+                switch (operacao)
                 {
+                    case Operacao.Somar:
                     resultado = primeiroNumero + segundoNumero;
-                }
-                else if (opcao == "2")
-                {
-                    resultado = primeiroNumero - segundoNumero;
-                }
-                else if (opcao == "3")
-                {
-                    resultado = primeiroNumero * segundoNumero;
-                }
-                else if (opcao == "4")
-                {
-                    if (segundoNumero != 0)
+                        break;
+                    case Operacao.Subtrair:
+                        resultado = primeiroNumero - segundoNumero;
+                        break;
+                    case Operacao.Multiplicar:
+                        resultado = primeiroNumero * segundoNumero;
+                        break;
+                    case Operacao.Dividir:
+                        if (segundoNumero != 0)
                     {
                         resultado = primeiroNumero / segundoNumero;
                     }
                     else
                     {
-                        Console.WriteLine("Inválido: divisão por zero.");
+                        Console.WriteLine("divisão por zero não é permitida");
                         valido = false;
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Opção inválida.");
-                    valido = false;
-                }
+                        break;
+            }
 
                 if (valido)
                 {
