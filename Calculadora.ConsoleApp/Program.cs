@@ -6,7 +6,8 @@ namespace Calculadora.ConsoleApp
         Somar = 1,
         Subtrair = 2,
         Multiplicar = 3,
-        Dividir = 4
+        Dividir = 4,
+        Tabuada = 5
     }
     internal class Program
     {
@@ -25,6 +26,7 @@ namespace Calculadora.ConsoleApp
                 Console.WriteLine("2 - Subtrair");
                 Console.WriteLine("3 - Multiplicar");
                 Console.WriteLine("4 - Dividir");
+                Console.WriteLine("5 - Tabuada");
                 Console.WriteLine("S - Sair");
                 Console.WriteLine();
                 Console.Write("Escolha uma opção: ");
@@ -32,9 +34,31 @@ namespace Calculadora.ConsoleApp
                 string opcao = Console.ReadLine().ToUpper();
 
                 if (opcao == "S")
-                {
-                    return;
+                    break;
+                else if (opcao == "5") {
+                    Console.WriteLine("______________________________");
+                    Console.WriteLine("          Tabuada");
+                    Console.WriteLine("______________________________");
+
+                    Console.Write("Digite o número: ");
+                    int numeroTabuada = Convert.ToInt32(Console.ReadLine());
+
+
+
+                    for (int contador = 1; contador <= 10; contador++) {
+
+                        int resultadoTabuada = numeroTabuada * contador;
+
+                        //string linhaTabuada = numeroTabuada + " x " + contador + " = " + resultadoTabuada;
+                        //string linhaTabuada = $"{numeroTabuada} x {contador} = {resultadoTabuada}";
+                        Console.WriteLine($"{numeroTabuada} x {contador} = {resultadoTabuada}");
+                    }
+                    Console.ReadLine();
+                        continue;
+
                 }
+
+
 
                 if (!Enum.TryParse(opcao, out Operacao operacao) || !Enum.IsDefined(typeof(Operacao), operacao))
                 {
@@ -57,12 +81,10 @@ namespace Calculadora.ConsoleApp
                 Console.Write("Digite o segundo número: ");
                 double segundoNumero = Convert.ToDouble(Console.ReadLine());
 
-                bool valido = true;
-
                 switch (operacao)
                 {
                     case Operacao.Somar:
-                    resultado = primeiroNumero + segundoNumero;
+                        resultado = primeiroNumero + segundoNumero;
                         break;
                     case Operacao.Subtrair:
                         resultado = primeiroNumero - segundoNumero;
@@ -71,22 +93,33 @@ namespace Calculadora.ConsoleApp
                         resultado = primeiroNumero * segundoNumero;
                         break;
                     case Operacao.Dividir:
-                        if (segundoNumero != 0)
-                    {
-                        resultado = primeiroNumero / segundoNumero;
-                    }
-                    else
-                    {
-                        Console.WriteLine("divisão por zero não é permitida");
-                        valido = false;
-                    }
+                        while (segundoNumero == 0)
+                        {
+                            Console.Write("Não é possível dividir por 0.\nDigite novamente: ");
+                            segundoNumero = Convert.ToDouble(Console.ReadLine());
+                        }
+                        resultado = primeiroNumero / segundoNumero; // Corrigido aqui!
                         break;
-            }
-
-                if (valido)
-                {
-                    Console.WriteLine("Resultado: " + resultado);
                 }
+
+
+
+                // if (segundoNumero != 0)
+                // {
+                // resultado = primeiroNumero / segundoNumero;
+                // }
+
+                //else
+                //     {
+                //    Console.WriteLine("divisão por zero não é permitida");
+                //     valido = false;
+                //     }
+                //     continue;
+                //  }
+
+
+                Console.WriteLine("Resultado: " + resultado);
+                
 
                 Console.WriteLine("Continuar usando o resultado? (s/n)");
                 char continuar = Console.ReadKey().KeyChar;
