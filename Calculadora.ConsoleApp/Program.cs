@@ -7,7 +7,8 @@ namespace Calculadora.ConsoleApp
         Subtrair = 2,
         Multiplicar = 3,
         Dividir = 4,
-        Tabuada = 5
+        Tabuada = 5,
+        Historico = 6
     }
     internal class Program
     {
@@ -15,7 +16,8 @@ namespace Calculadora.ConsoleApp
         {
             double resultado = 0;
             bool continuarOperando = false;
-
+            List<string> historico = new List<string>(); // armazenamento
+            
             Console.WriteLine("______________________________");
             Console.WriteLine("Calculadora Tabajara 2025");
             Console.WriteLine("______________________________");
@@ -27,6 +29,7 @@ namespace Calculadora.ConsoleApp
                 Console.WriteLine("3 - Multiplicar");
                 Console.WriteLine("4 - Dividir");
                 Console.WriteLine("5 - Tabuada");
+                Console.WriteLine("6 - Histórico");
                 Console.WriteLine("S - Sair");
                 Console.WriteLine();
                 Console.Write("Escolha uma opção: ");
@@ -35,7 +38,25 @@ namespace Calculadora.ConsoleApp
 
                 if (opcao == "S")
                     break;
-                else if (opcao == "5") {
+
+                if (opcao == "6") //histórico
+                {
+                    Console.WriteLine("______________________________");
+                    Console.WriteLine("          Histórico");
+                    Console.WriteLine("______________________________");
+
+                    if (historico.Count == 0)
+                        Console.WriteLine("Sem Dados");
+                    else
+                        historico.ForEach(Console.WriteLine);
+
+                    Console.WriteLine("______________________________");
+                    Console.ReadLine();
+                    continue;
+
+                }
+                else if (opcao == "5")
+                {
                     Console.WriteLine("______________________________");
                     Console.WriteLine("          Tabuada");
                     Console.WriteLine("______________________________");
@@ -45,7 +66,8 @@ namespace Calculadora.ConsoleApp
 
 
 
-                    for (int contador = 1; contador <= 10; contador++) {
+                    for (int contador = 1; contador <= 10; contador++)
+                    {
 
                         int resultadoTabuada = numeroTabuada * contador;
 
@@ -54,11 +76,9 @@ namespace Calculadora.ConsoleApp
                         Console.WriteLine($"{numeroTabuada} x {contador} = {resultadoTabuada}");
                     }
                     Console.ReadLine();
-                        continue;
+                    continue;
 
                 }
-
-
 
                 if (!Enum.TryParse(opcao, out Operacao operacao) || !Enum.IsDefined(typeof(Operacao), operacao))
                 {
@@ -85,12 +105,15 @@ namespace Calculadora.ConsoleApp
                 {
                     case Operacao.Somar:
                         resultado = primeiroNumero + segundoNumero;
+                        historico.Add($"{primeiroNumero} + {segundoNumero} = {resultado}");
                         break;
                     case Operacao.Subtrair:
                         resultado = primeiroNumero - segundoNumero;
+                        historico.Add($"{primeiroNumero} - {segundoNumero} = {resultado}");
                         break;
                     case Operacao.Multiplicar:
                         resultado = primeiroNumero * segundoNumero;
+                        historico.Add($"{primeiroNumero} * {segundoNumero} = {resultado}");
                         break;
                     case Operacao.Dividir:
                         while (segundoNumero == 0)
@@ -99,11 +122,9 @@ namespace Calculadora.ConsoleApp
                             segundoNumero = Convert.ToDouble(Console.ReadLine());
                         }
                         resultado = primeiroNumero / segundoNumero; // Corrigido aqui!
+                        historico.Add($"{primeiroNumero} / {segundoNumero} = {resultado}");
                         break;
                 }
-
-
-
                 // if (segundoNumero != 0)
                 // {
                 // resultado = primeiroNumero / segundoNumero;
@@ -116,11 +137,8 @@ namespace Calculadora.ConsoleApp
                 //     }
                 //     continue;
                 //  }
-
-
                 Console.WriteLine("Resultado: " + resultado);
-                
-
+              
                 Console.WriteLine("Continuar usando o resultado? (s/n)");
                 char continuar = Console.ReadKey().KeyChar;
                 Console.WriteLine();
