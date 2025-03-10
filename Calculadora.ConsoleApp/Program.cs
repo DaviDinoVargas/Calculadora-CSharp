@@ -16,7 +16,9 @@ namespace Calculadora.ConsoleApp
         {
             double resultado = 0;
             bool continuarOperando = false;
-            List<string> historico = new List<string>(); // armazenamento
+            //List<string> historico = new List<string>(); // armazenamento
+            int historicoInf = 0;
+            string[] historico = new string[100];
             
             Console.WriteLine("______________________________");
             Console.WriteLine("Calculadora Tabajara 2025");
@@ -45,12 +47,25 @@ namespace Calculadora.ConsoleApp
                     Console.WriteLine("          Histórico");
                     Console.WriteLine("______________________________");
 
-                    if (historico.Count == 0)
-                        Console.WriteLine("Sem Dados");
-                    else
-                        historico.ForEach(Console.WriteLine);
+                    //if (historico.Count == 0)
+                    //    Console.WriteLine("Sem Dados");
+                    //else
+                    //    historico.ForEach(Console.WriteLine);
+                    //
+                    //Console.WriteLine("______________________________");
+                    //Console.ReadLine();
+                    //continue;
 
-                    Console.WriteLine("______________________________");
+                    if (historicoInf == 0)
+                    {
+                        Console.WriteLine("Sem Dados");
+                    }
+                    else {
+                        for (int i = 0; i < historicoInf; i++)
+                        {
+                            Console.WriteLine(historico[i]);
+                        }
+                    }
                     Console.ReadLine();
                     continue;
 
@@ -101,19 +116,23 @@ namespace Calculadora.ConsoleApp
                 Console.Write("Digite o segundo número: ");
                 double segundoNumero = Convert.ToDouble(Console.ReadLine());
 
+                string contaCompleta = "";
                 switch (operacao)
                 {
                     case Operacao.Somar:
                         resultado = primeiroNumero + segundoNumero;
-                        historico.Add($"{primeiroNumero} + {segundoNumero} = {resultado}");
+                        //historico.Add($"{primeiroNumero} + {segundoNumero} = {resultado}");
+                        contaCompleta = $"{primeiroNumero} + {segundoNumero} = {resultado}";
                         break;
                     case Operacao.Subtrair:
                         resultado = primeiroNumero - segundoNumero;
-                        historico.Add($"{primeiroNumero} - {segundoNumero} = {resultado}");
+                        //historico.Add($"{primeiroNumero} - {segundoNumero} = {resultado}");
+                        contaCompleta = $"{primeiroNumero} - {segundoNumero} = {resultado}";
                         break;
                     case Operacao.Multiplicar:
                         resultado = primeiroNumero * segundoNumero;
-                        historico.Add($"{primeiroNumero} * {segundoNumero} = {resultado}");
+                        //historico.Add($"{primeiroNumero} * {segundoNumero} = {resultado}");
+                        contaCompleta = $"{primeiroNumero} * {segundoNumero} = {resultado}";
                         break;
                     case Operacao.Dividir:
                         while (segundoNumero == 0)
@@ -122,7 +141,8 @@ namespace Calculadora.ConsoleApp
                             segundoNumero = Convert.ToDouble(Console.ReadLine());
                         }
                         resultado = primeiroNumero / segundoNumero; // Corrigido aqui!
-                        historico.Add($"{primeiroNumero} / {segundoNumero} = {resultado}");
+                        //historico.Add($"{primeiroNumero} / {segundoNumero} = {resultado}");
+                        contaCompleta = $"{primeiroNumero} / {segundoNumero} = {resultado}";
                         break;
                 }
                 // if (segundoNumero != 0)
@@ -138,6 +158,11 @@ namespace Calculadora.ConsoleApp
                 //     continue;
                 //  }
                 Console.WriteLine("Resultado: " + resultado);
+
+                if (historicoInf < historico.Length) {
+                    historico[historicoInf] = contaCompleta;
+                    historicoInf++;
+                }
               
                 Console.WriteLine("Continuar usando o resultado? (s/n)");
                 char continuar = Console.ReadKey().KeyChar;
