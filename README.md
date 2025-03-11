@@ -1,41 +1,49 @@
-# Calculadora Tabajara 2025
+ï»¿# ğŸ“Ÿ Calculadora Tabajara 2025  
 
-## Introdução
+## ğŸ“Œ IntroduÃ§Ã£o  
 
-Calculadora Tabajara 2025 é um projeto de uma aplicação de linha de código simples em **C#** que simula uma calculadora real com suas funcionalidades de operações aritiméticas básicas.
+A **Calculadora Tabajara 2025** Ã© uma aplicaÃ§Ã£o de linha de comando desenvolvida em **C#** que oferece operaÃ§Ãµes matemÃ¡ticas bÃ¡sicas com suporte a casas decimais, armazenamento de histÃ³rico e validaÃ§Ãµes avanÃ§adas. O projeto serve para a utilizaÃ§Ã£o de conceitos fundamentais da linguagem, como **estruturas de controle, manipulaÃ§Ã£o de dados em arrays e validaÃ§Ã£o de entrada do usuÃ¡rio**.  
 
-## Funcionalidades
+## ğŸš€ Funcionalidades  
 
-- **Operações Aritméticas:**
-	- Somar
-	- Subtrair
-	- Multiplicar
-	- Dividir
+âœ… **OperaÃ§Ãµes AritmÃ©ticas:**  
+- â• **Soma**  
+- â– **SubtraÃ§Ã£o**  
+- âœ–ï¸ **MultiplicaÃ§Ã£o**  
+- â— **DivisÃ£o** (com validaÃ§Ã£o de divisÃ£o por zero)  
 
-- **Suporte a Casas Decimais;**
-- **Histórico de Operações**:
-  - Armazena e exibe as operações realizadas, incluindo o número de cada operação e o resultado.
-- **Tabuada**:
-  - Exibe a tabuada de um número fornecido pelo usuário.
-- **Continuação com o Resultado Anterior:**
-  - Permite que o usuário continue calculando com o resultado de operações anteriores.
-- **Validação de Entrada:** 
-  - A calculadora garante que apenas opções válidas sejam aceitas.
-- **Tratamento de Divisão por Zero:**
-  - A calculadora é capaz de validar erros de divisão por zero.
+âœ… **HistÃ³rico de OperaÃ§Ãµes:**  
+- Armazena as Ãºltimas **100 operaÃ§Ãµes** realizadas  
+- Exibe os cÃ¡lculos no formato `"a + b = c"`  
 
+âœ… **Tabuada:**  
+- Gera a tabuada atÃ© 10 de um nÃºmero fornecido pelo usuÃ¡rio  
+
+âœ… **CÃ¡lculo ContÃ­nuo:**  
+- Permite reutilizar o resultado da operaÃ§Ã£o anterior em novos cÃ¡lculos  
+
+âœ… **ValidaÃ§Ã£o de Entrada:**  
+- Evita entradas invÃ¡lidas, garantindo que apenas nÃºmeros e opÃ§Ãµes permitidas sejam aceitos  
+
+âœ… **Tratamento de ExceÃ§Ãµes:**  
+- Impede falhas no programa devido a entradas incorretas ou operaÃ§Ãµes invÃ¡lidas  
+
+---
+
+## ğŸ’» Exemplo de ExecuÃ§Ã£o:
 ![](https://i.imgur.com/4ila6zV.gif)
 
-## Como utilizar:
+## ğŸ›  Como utilizar:
+ğŸš€ Passo a Passo
 
-1. Clone o repositório ou baixe o código fonte.
-2. Abra o terminal ou prompt de comando e navegue até a pasta raiz
-3. Utilize o comando abaixo para restaurar as dependências do projeto
+1. Clone o repositÃ³rio ou baixe o cÃ³digo fonte.
+2. Abra o terminal ou prompt de comando e navegue atÃ© a pasta raiz
+3. Utilize o comando abaixo para restaurar as dependÃªncias do projeto
 
 ```
 dotnet restore
 ```
-4. Em seguida, compile a solução o comando:
+4. Em seguida, compile a soluÃ§Ã£o o comando:
 ```
 dotnet build --configuration Release
 ```
@@ -43,10 +51,10 @@ dotnet build --configuration Release
 ```
 dotnet run --project Calculadora.ConsoleApp
 ```
-6. Para executar o arquivo compilado, navegue até a pasta: ./Calculadora.ConsoleApp/bin/Release/net8.0/ e execute o arquivo:
+6. Para executar o arquivo compilado, navegue atÃ© a pasta: ./Calculadora.ConsoleApp/bin/Release/net8.0/ e execute o arquivo:
 ```
 Calculdora.ConsoleApp.exe
 ```
 
-## Requisitos
-.NET SDK (recomendado .NET 8.0 ou superior) para compilação e execução do projeto.
+## âœ… Requisitos
+.NET SDK (recomendado .NET 8.0 ou superior) para compilaÃ§Ã£o e execuÃ§Ã£o do projeto.
