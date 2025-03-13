@@ -1,175 +1,136 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Calculadora.ConsoleApp
+﻿namespace Calculadora.ConsoleApp
 {
-    enum Operacao { 
-        Somar = 1,
-        Subtrair = 2,
-        Multiplicar = 3,
-        Dividir = 4,
-        Tabuada = 5,
-        Historico = 6
-    }
     internal class Program
     {
         static void Main(string[] args)
         {
-            double resultado = 0;
-            bool continuarOperando = false;
-            //List<string> historico = new List<string>(); // armazenamento
-            int historicoInf = 0;
-            string[] historico = new string[100];
-            
-            Console.WriteLine("______________________________");
-            Console.WriteLine("Calculadora Tabajara 2025");
-            Console.WriteLine("______________________________");
+            string[] historicoOperacoes = new string[100];
+            int contadorHistorico = 0;
 
             while (true)
             {
-                Console.WriteLine("1 - Somar");
-                Console.WriteLine("2 - Subtrair");
-                Console.WriteLine("3 - Multiplicar");
-                Console.WriteLine("4 - Dividir");
-                Console.WriteLine("5 - Tabuada");
-                Console.WriteLine("6 - Histórico");
-                Console.WriteLine("S - Sair");
-                Console.WriteLine();
-                Console.Write("Escolha uma opção: ");
+                // exibe o menu e retorna a operação
+                string opcao = ExibirMenu();
 
-                string opcao = Console.ReadLine().ToUpper();
 
+                // verifica se quer sair
                 if (opcao == "S")
                     break;
 
-                if (opcao == "6") //histórico
-                {
-                    Console.WriteLine("______________________________");
-                    Console.WriteLine("          Histórico");
-                    Console.WriteLine("______________________________");
-
-                    //if (historico.Count == 0)
-                    //    Console.WriteLine("Sem Dados");
-                    //else
-                    //    historico.ForEach(Console.WriteLine);
-                    //
-                    //Console.WriteLine("______________________________");
-                    //Console.ReadLine();
-                    //continue;
-
-                    if (historicoInf == 0)
-                    {
-                        Console.WriteLine("Sem Dados");
-                    }
-                    else {
-                        for (int i = 0; i < historicoInf; i++)
-                        {
-                            Console.WriteLine(historico[i]);
-                        }
-                    }
-                    Console.ReadLine();
-                    continue;
-
-                }
+                //tabuada
                 else if (opcao == "5")
                 {
-                    Console.WriteLine("______________________________");
-                    Console.WriteLine("          Tabuada");
-                    Console.WriteLine("______________________________");
+                    Console.WriteLine("--------------------------------");
+                    Console.WriteLine("Tabuada");
+                    Console.WriteLine("--------------------------------");
 
                     Console.Write("Digite o número: ");
                     int numeroTabuada = Convert.ToInt32(Console.ReadLine());
 
-
-
                     for (int contador = 1; contador <= 10; contador++)
                     {
-
                         int resultadoTabuada = numeroTabuada * contador;
 
-                        //string linhaTabuada = numeroTabuada + " x " + contador + " = " + resultadoTabuada;
-                        //string linhaTabuada = $"{numeroTabuada} x {contador} = {resultadoTabuada}";
                         Console.WriteLine($"{numeroTabuada} x {contador} = {resultadoTabuada}");
                     }
+
+                    Console.ReadLine();
+
+                    continue;
+                }
+                // historico
+                else if (opcao == "6")
+                {
+                    Console.WriteLine("--------------------------------");
+                    Console.WriteLine("Histórico de Operações");
+                    Console.WriteLine("--------------------------------");
+
+                    for (int contador = 0; contador < historicoOperacoes.Length; contador++)
+                    {
+                        string valorAtual = historicoOperacoes[contador];
+
+                        if (valorAtual != null)
+                            Console.WriteLine(valorAtual);
+                    }
+
+                    Console.WriteLine("Aperte ENTER para continuar");
                     Console.ReadLine();
                     continue;
-
                 }
 
-                if (!Enum.TryParse(opcao, out Operacao operacao) || !Enum.IsDefined(typeof(Operacao), operacao))
-                {
-                    Console.WriteLine("Opção Inválida");
-                    continue;
-                }
-
-                double primeiroNumero;
-                if (continuarOperando)
-                {
-                    primeiroNumero = resultado;
-                    Console.WriteLine("resultado anterior: " + primeiroNumero);
-                }
-                else
-                {
-                    Console.Write("Digite o primeiro número: ");
-                    primeiroNumero = Convert.ToDouble(Console.ReadLine());
-                }
+                Console.Write("Digite o primeiro número: ");
+                string primeiroNumeroString = Console.ReadLine();
+                decimal primeiroNumero = Convert.ToDecimal(primeiroNumeroString);
 
                 Console.Write("Digite o segundo número: ");
-                double segundoNumero = Convert.ToDouble(Console.ReadLine());
+                string segundoNumeroString = Console.ReadLine();
+                decimal segundoNumero = Convert.ToDecimal(segundoNumeroString);
 
-                string contaCompleta = "";
-                switch (operacao)
+                decimal resultado = 0;
+
+                if (opcao == "1")
                 {
-                    case Operacao.Somar:
-                        resultado = primeiroNumero + segundoNumero;
-                        //historico.Add($"{primeiroNumero} + {segundoNumero} = {resultado}");
-                        contaCompleta = $"{primeiroNumero} + {segundoNumero} = {resultado}";
-                        break;
-                    case Operacao.Subtrair:
-                        resultado = primeiroNumero - segundoNumero;
-                        //historico.Add($"{primeiroNumero} - {segundoNumero} = {resultado}");
-                        contaCompleta = $"{primeiroNumero} - {segundoNumero} = {resultado}";
-                        break;
-                    case Operacao.Multiplicar:
-                        resultado = primeiroNumero * segundoNumero;
-                        //historico.Add($"{primeiroNumero} * {segundoNumero} = {resultado}");
-                        contaCompleta = $"{primeiroNumero} * {segundoNumero} = {resultado}";
-                        break;
-                    case Operacao.Dividir:
-                        while (segundoNumero == 0)
-                        {
-                            Console.Write("Não é possível dividir por 0.\nDigite novamente: ");
-                            segundoNumero = Convert.ToDouble(Console.ReadLine());
-                        }
-                        resultado = primeiroNumero / segundoNumero; // Corrigido aqui!
-                        //historico.Add($"{primeiroNumero} / {segundoNumero} = {resultado}");
-                        contaCompleta = $"{primeiroNumero} / {segundoNumero} = {resultado}";
-                        break;
+                    resultado = primeiroNumero + segundoNumero;
+                    historicoOperacoes[contadorHistorico] = $"{primeiroNumero} + {segundoNumero} = {resultado}";
                 }
-                // if (segundoNumero != 0)
-                // {
-                // resultado = primeiroNumero / segundoNumero;
-                // }
-
-                //else
-                //     {
-                //    Console.WriteLine("divisão por zero não é permitida");
-                //     valido = false;
-                //     }
-                //     continue;
-                //  }
-                Console.WriteLine("Resultado: " + resultado);
-
-                if (historicoInf < historico.Length) {
-                    historico[historicoInf] = contaCompleta;
-                    historicoInf++;
+                else if (opcao == "2")
+                {
+                    resultado = primeiroNumero - segundoNumero;
+                    historicoOperacoes[contadorHistorico] = $"{primeiroNumero} - {segundoNumero} = {resultado}";
                 }
-              
-                Console.WriteLine("Continuar usando o resultado? (s/n)");
-                char continuar = Console.ReadKey().KeyChar;
-                Console.WriteLine();
+                else if (opcao == "3")
+                {
+                    resultado = primeiroNumero * segundoNumero;
+                    historicoOperacoes[contadorHistorico] = $"{primeiroNumero} * {segundoNumero} = {resultado}";
+                }
+                else if (opcao == "4")
+                {
+                    while (segundoNumero == 0)
+                    {
+                        Console.Write("Não é possível dividir por 0\n Digite o segundo número novamente -> ");
 
-                continuarOperando = char.ToLower(continuar) == 's';
+                        segundoNumero = Convert.ToDecimal(Console.ReadLine());
+                    }
+
+                    resultado = primeiroNumero / segundoNumero;
+                    historicoOperacoes[contadorHistorico] = $"{primeiroNumero} / {segundoNumero} = {resultado}";
+                }
+
+                contadorHistorico += 1;
+
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("Resultado: " + resultado.ToString("F2"));
+                Console.WriteLine("--------------------------------");
+
+                Console.Write("Deseja continuar? (S/N): ");
+                string opcaoContinuar = Console.ReadLine().ToUpper();
+
+                if (opcaoContinuar != "S")
+                    break;
+
+                Console.ReadLine();
             }
+        }
+
+        // função/metodo
+        static string ExibirMenu()
+        {
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("Calculadora Tabajara");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("1 - Soma");
+            Console.WriteLine("2 - Subtração");
+            Console.WriteLine("3 - Multiplicação");
+            Console.WriteLine("4 - Divisão");
+            Console.WriteLine("5 - Tabuada");
+            Console.WriteLine("6 - Histórico de Operações");
+            Console.WriteLine("S - Sair");
+            Console.WriteLine("--------------------------------");
+            Console.Write("Digite uma opção: ");
+
+            string opcao = Console.ReadLine()!.ToUpper();
+
+            return opcao;
         }
     }
 }
