@@ -4,6 +4,7 @@
     {
         static string[] historicoOperacoes = new string[100];
         static int contadorHistorico = 0;
+        static decimal resultadoAnterior = 0;
         static void Main(string[] args)
         {
 
@@ -29,14 +30,9 @@
                 {
                     ExibirResultado(RealizarCalculo(opcao));
                 }
- 
-                Console.Write("Deseja continuar? (S/N): ");
-                string opcaoContinuar = Console.ReadLine()!.ToUpper();
-
-                if (opcaoContinuar != "S")
+                
+                if (!DesejaContinuar())
                     break;
-
-                Console.ReadLine();
             }
         }
 
@@ -113,13 +109,23 @@
              }
 
              Console.WriteLine("Aperte ENTER para continuar");
-             Console.ReadLine();
+
         }
 
         static decimal RealizarCalculo(string operacao)
         {
-            Console.Write("Digite o primeiro número: ");
-            decimal primeiroNumero = Convert.ToDecimal(Console.ReadLine());
+            decimal primeiroNumero;
+
+            // Só pergunta se deseja continuar se já houver um resultado anterior válido
+            if (resultadoAnterior != 0 && ContinuarComResultadoAnterior())
+            {
+                primeiroNumero = resultadoAnterior;
+            }
+            else
+            {
+                Console.Write("Digite o primeiro número: ");
+                primeiroNumero = Convert.ToDecimal(Console.ReadLine());
+            }
 
             Console.Write("Digite o segundo número: ");
             decimal segundoNumero = Convert.ToDecimal(Console.ReadLine());
@@ -153,7 +159,8 @@
                 resultado = primeiroNumero / segundoNumero;
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} / {segundoNumero} = {resultado}";
             }
-
+            contadorHistorico++;
+            resultadoAnterior = resultado;
             return resultado;
 
         }
@@ -164,8 +171,16 @@
             Console.WriteLine("Resultado: " + resultado.ToString("F2"));
             Console.WriteLine("--------------------------------");
 
-            Console.ReadLine();
-
+        }
+        static bool DesejaContinuar()
+        {
+            Console.Write("Deseja continuar? (S/N): ");
+            return Console.ReadLine()!.ToUpper() == "S";
+        }
+        static bool ContinuarComResultadoAnterior()
+        {
+            Console.Write("Continuar com o resultado anterior? (S/N): ");
+            return Console.ReadLine()!.ToUpper() == "S";
         }
     }
 }
