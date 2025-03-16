@@ -48,6 +48,7 @@
             Console.WriteLine("4 - Divisão");
             Console.WriteLine("5 - Tabuada");
             Console.WriteLine("6 - Histórico de Operações");
+            Console.WriteLine("7 - Potenciação");
             Console.WriteLine("S - Sair");
             Console.WriteLine("--------------------------------");
             Console.Write("Digite uma opção: ");
@@ -159,6 +160,12 @@
                 resultado = primeiroNumero / segundoNumero;
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} / {segundoNumero} = {resultado}";
             }
+            else if (operacao == "7")
+            {
+                resultado = (decimal)Math.Pow((double)primeiroNumero, (double)segundoNumero);
+                historicoOperacoes[contadorHistorico] = $"{primeiroNumero} ^ {segundoNumero} = {resultado}";
+            }
+
             contadorHistorico++;
             resultadoAnterior = resultado;
             return resultado;
