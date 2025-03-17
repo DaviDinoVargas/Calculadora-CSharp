@@ -135,17 +135,17 @@
 
             if (operacao == "1")
             {
-                resultado = primeiroNumero + segundoNumero;
+                resultado = Calculadora.Somar(primeiroNumero, segundoNumero);
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} + {segundoNumero} = {resultado}";
             }
             else if (operacao == "2")
             {
-                resultado = primeiroNumero - segundoNumero;
+                resultado = Calculadora.Subtrair(primeiroNumero, segundoNumero);
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} - {segundoNumero} = {resultado}";
             }
             else if (operacao == "3")
             {
-                resultado = primeiroNumero * segundoNumero;
+                resultado = Calculadora.Multiplicar(primeiroNumero, segundoNumero);
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} * {segundoNumero} = {resultado}";
             }
             else if (operacao == "4")
@@ -157,12 +157,12 @@
                     segundoNumero = Convert.ToDecimal(Console.ReadLine());
                 }
 
-                resultado = primeiroNumero / segundoNumero;
+                resultado = Calculadora.Dividir(primeiroNumero, segundoNumero);
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} / {segundoNumero} = {resultado}";
             }
             else if (operacao == "7")
             {
-                resultado = (decimal)Math.Pow((double)primeiroNumero, (double)segundoNumero);
+                resultado = Calculadora.Potenciacao(primeiroNumero, segundoNumero);
                 historicoOperacoes[contadorHistorico] = $"{primeiroNumero} ^ {segundoNumero} = {resultado}";
             }
 
@@ -179,15 +179,18 @@
             Console.WriteLine("--------------------------------");
 
         }
+
         static bool DesejaContinuar()
         {
             Console.Write("Deseja continuar? (S/N): ");
             return Console.ReadLine()!.ToUpper() == "S";
         }
+
         static bool ContinuarComResultadoAnterior()
         {
             Console.Write("Continuar com o resultado anterior? (S/N): ");
             return Console.ReadLine()!.ToUpper() == "S";
         }
+
     }
 }
