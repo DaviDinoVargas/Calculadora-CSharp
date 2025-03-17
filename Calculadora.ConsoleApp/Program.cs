@@ -83,12 +83,11 @@
             Console.Write("Digite o número: ");
             int numeroTabuada = Convert.ToInt32(Console.ReadLine());
 
-            for (int contador = 1; contador <= 10; contador++)
-            {
-                int resultadoTabuada = numeroTabuada * contador;
+            string[] linhasTabuada = Calculadora.GerarTabuada(numeroTabuada);
 
-                Console.WriteLine($"{numeroTabuada} x {contador} = {resultadoTabuada}");
-            }
+            for (int contador = 0; contador < linhasTabuada.Length; contador++)
+                Console.WriteLine(linhasTabuada[contador]);
+
 
             Console.ReadLine();
         }
