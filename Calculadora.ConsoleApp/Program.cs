@@ -2,9 +2,7 @@
 {
     internal class Program
     {
-        static string[] historicoOperacoes = new string[100];
-        static int contadorHistorico = 0;
-        static decimal resultadoAnterior = 0;
+
         static void Main(string[] args)
         {
 
@@ -101,6 +99,8 @@
             Console.WriteLine("Histórico de Operações");
             Console.WriteLine("--------------------------------");
 
+            string[] historicoOperacoes = Calculadora.ObterHistoricoOperacoes();
+
             for (int contador = 0; contador<historicoOperacoes.Length; contador++)
             {
             string valorAtual = historicoOperacoes[contador];
@@ -116,7 +116,7 @@
         static decimal RealizarCalculo(string operacao)
         {
             decimal primeiroNumero;
-
+            decimal resultadoAnterior = Calculadora.UsarResultadoAnterior();
             // Só pergunta se deseja continuar se já houver um resultado anterior válido
             if (resultadoAnterior != 0 && ContinuarComResultadoAnterior())
             {
@@ -134,20 +134,14 @@
             decimal resultado = 0;
 
             if (operacao == "1")
-            {
                 resultado = Calculadora.Somar(primeiroNumero, segundoNumero);
-                historicoOperacoes[contadorHistorico] = $"{primeiroNumero} + {segundoNumero} = {resultado}";
-            }
+               
             else if (operacao == "2")
-            {
                 resultado = Calculadora.Subtrair(primeiroNumero, segundoNumero);
-                historicoOperacoes[contadorHistorico] = $"{primeiroNumero} - {segundoNumero} = {resultado}";
-            }
+                
             else if (operacao == "3")
-            {
                 resultado = Calculadora.Multiplicar(primeiroNumero, segundoNumero);
-                historicoOperacoes[contadorHistorico] = $"{primeiroNumero} * {segundoNumero} = {resultado}";
-            }
+                
             else if (operacao == "4")
             {
                 while (segundoNumero == 0)
@@ -157,16 +151,11 @@
                     segundoNumero = Convert.ToDecimal(Console.ReadLine());
                 }
 
-                resultado = Calculadora.Dividir(primeiroNumero, segundoNumero);
-                historicoOperacoes[contadorHistorico] = $"{primeiroNumero} / {segundoNumero} = {resultado}";
+                resultado = Calculadora.Dividir(primeiroNumero, segundoNumero);        
             }
             else if (operacao == "7")
-            {
                 resultado = Calculadora.Potenciacao(primeiroNumero, segundoNumero);
-                historicoOperacoes[contadorHistorico] = $"{primeiroNumero} ^ {segundoNumero} = {resultado}";
-            }
 
-            contadorHistorico++;
             resultadoAnterior = resultado;
             return resultado;
 
